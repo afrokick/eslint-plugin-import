@@ -556,6 +556,10 @@ module.exports = {
             },
             additionalProperties: false,
           },
+          topLevelOnly: {
+            type: 'boolean',
+            default: false,
+          },
         },
         additionalProperties: false,
       },

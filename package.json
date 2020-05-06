@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin-import",
+  "name": "@itgenio/eslint-plugin-import",
   "version": "2.20.2",
   "description": "Import with sanity.",
   "engines": {
