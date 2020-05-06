@@ -567,6 +567,7 @@ module.exports = {
     const newlinesBetweenImports = options['newlines-between'] || 'ignore'
     const pathGroupsExcludedImportTypes = new Set(options['pathGroupsExcludedImportTypes'] || ['builtin', 'external'])
     const alphabetize = getAlphabetizeConfig(options)
+    const topLevelOnly = options['topLevelOnly'] || false
     let ranks
 
     try {
@@ -596,7 +597,7 @@ module.exports = {
 
     return {
       ImportDeclaration: function handleImports(node) {
-        if (node.specifiers.length) { // Ignoring unassigned imports
+        if (node.specifiers.length && (!topLevelOnly || level === 0)) { // Ignoring unassigned imports
           const name = node.source.value
           registerNode(
             context,
