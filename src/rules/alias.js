@@ -20,11 +20,11 @@ module.exports = {
     ],
   },
   create: function (context) {
-    const options = context.options[0] || {}
+    if (!context || !context.options) return {}
 
-    const { aliases, fixible: isFixible } = options || {}
+    const { aliases, fixible: isFixible } = context.options[0] || {}
 
-    if (!aliases) return
+    if (!aliases) return {}
 
     return {
       ImportDeclaration: function (node) {
@@ -249,8 +249,6 @@ function canUseAliasImport({
 
   if (!currentPathAlias) return true
 
-  const [currentPathAliasKey] = currentPathAlias
-
   const hasSimilarAlias = hasSimilarAliasKey({ aliases, aliasKey })
 
   if (aliasPath.indexOf('*') !== -1 && !hasSimilarAlias) {
@@ -262,6 +260,8 @@ function canUseAliasImport({
 
     return currentApi && newApi && currentApi !== newApi
   }
+
+  const [currentPathAliasKey] = currentPathAlias
 
   return ![aliasKey, aliasKey + '/*'].includes(currentPathAliasKey)
 }
